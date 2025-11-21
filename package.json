@@ -2,11 +2,13 @@
   "name": "aisg-prodem-api",
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "tsx server/index.ts",
-    "build": "tsc",
-    "start": "node dist/server/index.js"
-  },
+ "scripts": {
+  "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
+  "dev:server": "tsx server/index.ts",
+  "dev:client": "vite --config vite.config.ts",
+  "build": "vite build --config vite.config.ts",
+  "preview": "vite preview"
+},
   "dependencies": {
     "express": "^4.21.2",
     "cors": "^2.8.5"
