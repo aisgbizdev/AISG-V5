@@ -1,4 +1,3 @@
-// Hierarchy Utils placeholder
-export function parseHierarchy(data:any) {
-  return {};
+export function flattenHierarchy() {
+  return "Hierarchy utils belum diaktifkan";
 }
