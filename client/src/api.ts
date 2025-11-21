@@ -1,7 +1,3 @@
-import type { ProdemResult } from "./App";
-
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000";
-
 export interface ProdemPayload {
   name: string;
   jabatan: "BC" | "SBC" | "BSM" | "SBM" | "EM" | "SEM" | "VBM";
@@ -10,8 +6,20 @@ export interface ProdemPayload {
   staffAktif: number;
 }
 
-export async function evaluateProdemApi(payload: ProdemPayload): Promise<ProdemResult> {
-  const res = await fetch(`${API_BASE}/api/prodem/evaluate`, {
+export interface ProdemResult {
+  status: "Naik" | "Tetap" | "Turun";
+  currentLevel: string;
+  recommendedLevel: string;
+  reasons: string[];
+}
+
+const API_BASE =
+  import.meta.env.VITE_API_BASE || "http://localhost:5000";
+
+export async function evaluateProdemApi(
+  payload: ProdemPayload
+): Promise<ProdemResult> {
+  const res = await fetch(`${API_BASE}/api/prodem`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -20,8 +28,9 @@ export async function evaluateProdemApi(payload: ProdemPayload): Promise<ProdemR
   });
 
   if (!res.ok) {
-    throw new Error(`HTTP ${res.status}`);
+    throw new Error(`API error: ${res.status}`);
   }
 
-  return res.json();
+  const json = await res.json();
+  return json.data;
 }
