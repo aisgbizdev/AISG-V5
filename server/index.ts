@@ -2,21 +2,28 @@ import express from "express";
 import cors from "cors";
 import prodemRoutes from "./routes/prodem.routes.js";
 
+// Biar TypeScript gak rewel soal `process`
+declare const process: any;
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Route ProDem
 app.use("/api/prodem", prodemRoutes);
 
 // Health check
-app.get("/health", (_, res) => {
-  res.json({ status: "ok", service: "AISG ProDem Engine" });
+app.get("/health", (_req, res) => {
+  res.json({
+    status: "ok",
+    service: "AISG ProDem Engine",
+    timestamp: Date.now()
+  });
 });
 
-// Start
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🔥 AISG ProDem API running on port ${PORT}`);
+const port = Number(process?.env?.PORT ?? 10000);
+
+app.listen(port, () => {
+  console.log(`🔥 AISG ProDem API running on port ${port}`);
 });
