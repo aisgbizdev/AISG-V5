@@ -2,14 +2,15 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
+    "moduleResolution": "node",
     "rootDir": "./",
     "outDir": "./dist",
     "esModuleInterop": true,
     "strict": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "types": ["node"]
+    "resolveJsonModule": true
   },
-  "include": ["server/**/*"]
+  "include": ["server/**/*"],
+  "exclude": ["node_modules"]
 }
