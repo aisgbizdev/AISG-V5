@@ -1,23 +1,22 @@
 import express from "express";
 import cors from "cors";
-import prodemRoutes from "./routes/prodem.routes";
+import prodemRoutes from "./routes/prodem.routes.js";
 
 const app = express();
 
-// middleware
 app.use(cors());
 app.use(express.json());
 
-// routes
+// Routes
 app.use("/api/prodem", prodemRoutes);
 
-// health check
-app.get("/health", (_req, res) => {
+// Health check
+app.get("/health", (_, res) => {
   res.json({ status: "ok", service: "AISG ProDem Engine" });
 });
 
-// start server
+// Start
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 AISG ProDem API running at port ${PORT}`);
+  console.log(`🔥 AISG ProDem API running on port ${PORT}`);
 });
