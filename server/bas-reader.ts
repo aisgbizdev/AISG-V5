@@ -1,4 +1,3 @@
-// BAS Reader placeholder
-export function readBAS(csv:string) {
-  return [];
+export function loadBas() {
+  return "BAS reader belum diaktifkan";
 }
